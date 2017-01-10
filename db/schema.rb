@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109223119) do
+ActiveRecord::Schema.define(version: 20170110191945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170109223119) do
     t.integer  "damage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "char_type"
   end
 
   create_table "battles", force: :cascade do |t|
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170109223119) do
   end
 
   create_table "characters", force: :cascade do |t|
-    t.string   "type"
+    t.string   "char_type"
     t.integer  "level",      default: 1
     t.integer  "hp",         default: 100
     t.integer  "user_id"
