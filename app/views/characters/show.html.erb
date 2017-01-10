@@ -1,0 +1,18 @@
+<h1><%= @character.char_type.capitalize %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Ability</th>
+      <th>Damage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @character.abilities.each do |ability| %>
+    <tr>
+      <td><%= ability.slug_name %></td>
+      <td><%= ability.damage %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<p><%= link_to 'Back to Profile', @character.user %></p>
