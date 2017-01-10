@@ -1,8 +1,14 @@
 <h1><%= @user.nickname %></h1>
+<ul>
+<% @characters.each do |char| %>
+<li><%= link_to char.char_type.capitalize, char %></li>
+<% end %>
+</ul>
 
-user page contains linked characters with info
-contains active battles color coded, with links to the battles
-along with battle invitations
-stats=win/loss
-Battle form (type username or battle random user, select character)
+<p><%= link_to 'Edit Profile', edit_user_path %></p>
+
+contains active battles color coded, with links to the battles <br>
+along with battle invitations <br>
+stats=win/loss <br>
+Battle form (type username or battle random user, select character) <br>
 contains link to "Training"
