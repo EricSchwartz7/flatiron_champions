@@ -9,11 +9,13 @@ class BattlesController < ApplicationController
   end
 
   def move
-    if it_is_the_users_turn?
-      if challengers_move?
-        @move = Move.new(params[:challenger][:ability])
+    @battle = Battle.find(params[:id])
+    challengers_move = !!params[:challenger]
+    if @battle.it_is_the_users_turn?(challengers_move)
+      if challengers_move
+        @move = Move.new(params[:challenger])
       elsif(!!params[:opponent])
-        @move = Move.new(params[:opponent][:ability])
+        @move = Move.new(ability_id: params[:opponent][:ability_id])
       else
         flash[:notice] = 'Valid Move Was NOT Submitted'
         render :new and return
@@ -22,12 +24,9 @@ class BattlesController < ApplicationController
     else
       flash[:notice] = 'It is not your move.'
     end
-
-    if valid_turn
-      execute_turn(moves)
+    if @battle.valid_turn
+      @battle.execute_turn(moves)
       redirect_to battle_path
     end
-
-
-
+  end
 end

@@ -1,13 +1,16 @@
 <h1><%= @challenger.nickname %> VS. <%= @opponent.nickname %></h1>
 
 <div style = "float:left">
-  <%= @challenger_character.char_type  %>
-  <%= @challenger_character.hp  %>
-  <%= @challenger_character.level  %>
+  <p>Character Type: <%= @challenger_character.char_type  %></p>
+
+  <p>HP: <%= @challenger_character.hp %></p>
+  <p>Level: <%= @challenger_character.level  %></p>
+
   <%if current_user.id == @challenger.id %>
     <%= form_tag submit_move_path do %>
-      <%@challenger_character.abilities.each do |ability| %>
-        <%= radio_button_tag 'challenger[ability]', 'ability.id' %>
+      <%@challenger_character.character_abilities.each do |ability| %>
+        <%= label_tag "#{ability.slug_name}" %>
+        <%= radio_button_tag 'challenger[ability_id]', 'ability.id' %><br>
         <% end %>
         <%= submit_tag 'Submit Move' %>
     <% end %>
@@ -21,8 +24,9 @@
   <%= @opponent_character.level  %>
   <%if current_user.id == @opponent.id %>
     <%= form_tag submit_move_path do %>
-      <%@opponent_character.abilities.each do |ability| %>
-        <%= radio_button_tag 'opponent[ability]', 'ability.id' %>
+      <%@opponent_character.character_abilities.each do |ability| %>
+      <%= label_tag "#{ability.slug_name}" %>
+      <%= radio_button_tag 'opponent[ability_id]', 'ability.id' %><br>
         <% end %>
         <%= submit_tag 'Submit Move' %>
     <% end %>

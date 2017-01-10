@@ -8,14 +8,14 @@ class Battle < ApplicationRecord
     !!params[:challenger]
   end
 
-  def it_is_the_users_turn?
-    if Battle.find(params[:id]).moves.count == 0
+  def it_is_the_users_turn?(challengers_move)
+    if self.moves.count == 0
       return true
     else
-      challenger_moves, opponent_moves = Battle.find(params[:id]).moves.partition do |move|
+      challenger_moves, opponent_moves = self.moves.partition do |move|
         CharacterAbility.find(move.characterability_id).character_id == battle.challenger_id
       end
-      if challenger_move?
+      if challengers_move
         challenger_moves.count == opponent_moves.count || challenger_moves.count == opponent_moves.count-1
       else
         challenger_moves.count == opponent_moves.count || challenger_moves.count == opponent_moves.count+1
@@ -25,10 +25,10 @@ class Battle < ApplicationRecord
 
 
   def valid_turn
-    if Battle.find(params[:id]).moves.count == 0
+    if self.moves.count == 0
       return false
     else
-      challenger_moves, opponent_moves = Battle.find(params[:id]).moves.partition do |move|
+      challenger_moves, opponent_moves = self.moves.partition do |move|
         CharacterAbility.find(move.characterability_id).character_id == battle.challenger_id
       end
       if challenger_moves.count == opponent_moves.count
@@ -47,20 +47,18 @@ class Battle < ApplicationRecord
   end
 
   def end_battle(moves)
-    battle = Battle.find(moves.last.battle_id)
     challanger_character = Character.find(moves.first.character_id)
     opponent_character = Character.find(moves.last.character_id)
     if challanger_character.hp < 1
-      battle.winner_id = opponent_character
+      self.winner_id = opponent_character
     elsif opponent_character.hp < 1
-      battle.winner_id = challanger_character
+      self.winner_id = challanger_character
     end
-    battle.save
+    self.save
   end
 
   def battle_over?
-    battle = Battle.find(params[:id])
-    !!battle.winner_id
+    !!self.winner_id
   end
 
   def attack_opponent(moves)
