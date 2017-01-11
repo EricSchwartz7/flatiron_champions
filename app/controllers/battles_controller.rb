@@ -19,11 +19,17 @@ class BattlesController < ApplicationController
   end
 
   def show
-    @battle = Battle.find(params[:id])
-    @challenger_character = @battle.challenger
-    @opponent_character = @battle.opponent
-    @challenger = @challenger_character.user
-    @opponent = @opponent_character.user
+    @user = current_user
+    if params[:invite] == 'decline'
+      redirect_to @user
+    else
+      @battle = Battle.find(params[:id])
+      @challenger_character = @battle.challenger
+      @opponent_character = @battle.opponent
+      @challenger = @challenger_character.user
+      @opponent = @opponent_character.user
+      @battle.accepted = true
+    end
   end
 
   def move
