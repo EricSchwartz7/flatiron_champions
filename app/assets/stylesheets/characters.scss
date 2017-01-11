@@ -1,3 +1,24 @@
 // Place all the styles related to the characters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile-arrow {
+	display: inline-block;
+	position: relative;
+	background: orange;
+	padding: 15px;
+}
+.profile-arrow:after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+  border-top: 10px solid transparent;
+	border-right: 10px solid orange;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid transparent;
+}

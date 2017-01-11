@@ -26,4 +26,5 @@ class BattlesController < ApplicationController
     @battle.execute_turn(@moves) if @battle.valid_turn(@moves)
     redirect_to battle_path
   end
+
 end
