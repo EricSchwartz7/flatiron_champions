@@ -9,6 +9,7 @@
 <% unless @active_battle == nil %>
   <%= link_to "#{@active_battle.challenger.user.nickname} vs #{@active_battle.opponent.user.nickname}", @active_battle %>
 <% end %>
+<br>
 
 <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
    <a class="edit-profile-arrow" style="vertical-align:middle" href="/users/<%= @user.id %>/edit"> <span>Edit Profile</span></a><br>
