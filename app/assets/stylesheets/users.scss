@@ -1,3 +1,104 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.battle_button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #00bfff;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 15px;
+  width: 175px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.battle_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.battle_button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.battle_button:hover span {
+  padding-right: 25px;
+}
+
+.battle_button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.edit-profile-arrow {
+	display: inline-block;
+	position: relative;
+	background: darkcyan;
+	padding: 15px;
+}
+.edit-profile-arrow:after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 10px solid darkcyan;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid transparent;
+}
+
+.logout_button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #ff4500;
+  border: none;
+  color: #FFFFFF;
+  text-align: middle;
+  font-size: 15px;
+  padding: 15px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.logout_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.logout_button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.logout_button:hover span {
+  padding-left: 25px;
+}
+
+.logout_button:hover span:after {
+  opacity: 1;
+  left: 0;
+}
