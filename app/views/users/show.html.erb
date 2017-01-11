@@ -4,13 +4,14 @@
     <li><%= link_to char.char_type.capitalize, char %></li>
     <% end %>
 </ul>
-    <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
+
+<a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
 
 <p class="edit-profile-arrow"><%= link_to 'Edit Profile', edit_user_path %></p><br>
 
 <button class="logout_button" style="vertical-align:middle"><span><%= link_to 'Logout', logout_path %></span></button><br>
-contains active battles color coded, with links to the battles <br>
-along with battle invitations <br>
-stats=win/loss <br>
-Battle form (type username or battle random user, select character) <br>
-contains link to "Training"
+
+<p>Active Battles:</p>
+<% unless @active_battle == nil %>
+  <%= link_to "#{@active_battle.challenger.user.nickname} vs #{@active_battle.opponent.user.nickname}", @active_battle %>
+<% end %>

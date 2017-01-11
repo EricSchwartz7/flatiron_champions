@@ -62,5 +62,5 @@
 <% end %>
 </ul>
 <% if @battle.battle_over? %>
-<p><%= User.find(@battle.winner_id).nickname %> has won the battle! Do you want a rematch? </p>
+<p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
 <% end %>

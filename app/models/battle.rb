@@ -67,5 +67,4 @@ class Battle < ApplicationRecord
   #   @battle.opponent.hp = 100
   # end
 
-
 end
