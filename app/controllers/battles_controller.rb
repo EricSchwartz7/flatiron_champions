@@ -1,8 +1,9 @@
 class BattlesController < ApplicationController
+  before_action :require_login
+  
   def new
     @users = User.where("id != ?", current_user.id)
     @battle = Battle.new
-
   end
 
   def create
@@ -15,7 +16,6 @@ class BattlesController < ApplicationController
       @battle.save
       redirect_to @battle
     end
-
   end
 
   def show
@@ -27,6 +27,11 @@ class BattlesController < ApplicationController
   end
 
   def move
+    if params[:character_ability_id].blank?
+      flash[:notice] = 'Please select a move.'
+      redirect_to battle_path and return
+    end
+
     @battle = Battle.find(params[:id])
     @ability_used = CharacterAbility.find(params[:character_ability_id])
     @moves = @battle.battle_move_history
