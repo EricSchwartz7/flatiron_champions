@@ -15,15 +15,11 @@ class Character < ApplicationRecord
   end
 
   def battles
-    battles = []
-    self.battles_where_challenger.each { |battle| battles << battle }
-    self.battles_where_opponent.each { |battle| battles << battle }
-    battles
+    self.battles_where_challenger + self.battles_where_opponent
   end
 
   def active_battles
     if !self.battles.blank?
-      # self.battles.where("winner_id = null")
       self.battles.select do |battle|
         battle.winner_id == nil
       end
