@@ -25,27 +25,23 @@ class Battle < ApplicationRecord
   end
 
   def attack_challenger(battle_move_history)
-    challenger_character = Character.find(self.challenger_id)
-    challenger_character.hp -= battle_move_history.last.last.character_ability.ability.damage
-    challenger_character.save
+    @battle = Battle.find(self.id)
+    @battle.challenger_hp -= battle_move_history.last.last.character_ability.ability.damage
+    @battle.save
   end
 
   def attack_opponent(battle_move_history)
-    opponent_character = Character.find(self.opponent_id)
-    opponent_character.hp -= battle_move_history.first.last.character_ability.ability.damage
-    opponent_character.save
+    @battle = Battle.find(self.id)
+    @battle.opponent_hp -= battle_move_history.first.last.character_ability.ability.damage
+    @battle.save
   end
 
   def end_battle
     @battle = Battle.find(self.id)
-    challenger_character = Character.find(self.challenger_id)
-    opponent_character = Character.find(self.opponent_id)
-    if challenger_character.hp < 1
-      @battle.winner_id = opponent_character.id
-      #reset_hp
-    elsif opponent_character.hp < 1
-      @battle.winner_id = challenger_character.id
-      #reset_hp
+    if @battle.challenger_hp < 1
+      @battle.winner_id = @battle.opponent.id
+    elsif @battle.opponent_hp < 1
+      @battle.winner_id = @battle.challenger.id
     end
     @battle.save
   end
@@ -60,11 +56,5 @@ class Battle < ApplicationRecord
     attack_opponent(battle_move_history)
     end_battle
   end
-
-  # def reset_hp
-  #   @battle = Battle.find(self.id)
-  #   @battle.challenger.hp = 100
-  #   @battle.opponent.hp = 100
-  # end
 
 end
