@@ -3,79 +3,60 @@ class Battle < ApplicationRecord
   belongs_to :challenger, class_name: 'Character'
   belongs_to :opponent, class_name: 'Character'
 
-
-  def challenger_move?
-    !!params[:challenger]
+  def battle_move_history
+    challenger_moves, opponent_moves = self.moves.partition { |move| CharacterAbility.find(move.character_ability_id).character_id == self.challenger_id}
+    [challenger_moves,opponent_moves]
   end
 
-  def it_is_the_users_turn?
-    if Battle.find(params[:id]).moves.count == 0
-      return true
+  def valid_move(character_ability, battle_move_history)
+    return false if self.battle_over?
+    if character_ability.character.id == self.challenger_id
+      battle_move_history.first.count == battle_move_history.last.count || battle_move_history.first.count == (battle_move_history.last.count - 1)
+    elsif character_ability.character.id == self.opponent_id
+      battle_move_history.first.count == battle_move_history.last.count || (battle_move_history.first.count - 1) == battle_move_history.last.count
     else
-      challenger_moves, opponent_moves = Battle.find(params[:id]).moves.partition do |move|
-        CharacterAbility.find(move.characterability_id).character_id == battle.challenger_id
-      end
-      if challenger_move?
-        challenger_moves.count == opponent_moves.count || challenger_moves.count == opponent_moves.count-1
-      else
-        challenger_moves.count == opponent_moves.count || challenger_moves.count == opponent_moves.count+1
-      end
+      false
     end
   end
 
-
-  def valid_turn
-    if Battle.find(params[:id]).moves.count == 0
-      return false
-    else
-      challenger_moves, opponent_moves = Battle.find(params[:id]).moves.partition do |move|
-        CharacterAbility.find(move.characterability_id).character_id == battle.challenger_id
-      end
-      if challenger_moves.count == opponent_moves.count
-        [challenger_moves.last, opponent_moves.last]
-      else
-        false
-      end
-    end
+  def valid_turn(battle_move_history)
+    return false if self.moves.count == 0
+    return battle_move_history.first.count == battle_move_history.last.count
   end
 
-  def attack_challenger(moves)
-    ability = Ability.find(moves.last.ability_id)
-    challenger_character = Character.find(moves.first.character_id)
-    challenger_charcter.hp -= ability.damage
-    challenger_charcter.save
+  def attack_challenger(battle_move_history)
+    challenger_character = Character.find(self.challenger_id)
+    challenger_character.hp -= battle_move_history.last.last.character_ability.ability.damage
+    challenger_character.save
   end
 
-  def end_battle(moves)
-    battle = Battle.find(moves.last.battle_id)
-    challanger_character = Character.find(moves.first.character_id)
-    opponent_character = Character.find(moves.last.character_id)
-    if challanger_character.hp < 1
-      battle.winner_id = opponent_character
+  def attack_opponent(battle_move_history)
+    opponent_character = Character.find(self.opponent_id)
+    opponent_character.hp -= battle_move_history.first.last.character_ability.ability.damage
+    opponent_character.save
+  end
+
+  def end_battle
+    @battle = Battle.find(self.id)
+    challenger_character = Character.find(self.challenger_id)
+    opponent_character = Character.find(self.opponent_id)
+    if challenger_character.hp < 1
+      @battle.winner_id = opponent_character.id
     elsif opponent_character.hp < 1
-      battle.winner_id = challanger_character
+      @battle.winner_id = challenger_character.id
     end
-    battle.save
+    @battle.save
   end
 
   def battle_over?
-    battle = Battle.find(params[:id])
-    !!battle.winner_id
+    !!self.winner_id
   end
 
-  def attack_opponent(moves)
-    ability = Ability.find(moves.first.ability_id)
-    opponent_character = Character.find(moves.last.character_id)
-    opponent_charcter.hp -= ability.damage
-    opponent_charcter.save
-  end
-
-
-  def execute_turn(moves)
-    attack_challenger(moves)
-    end_battle(moves)
-    attack_opponent(moves)
-    end_battle(moves)
+  def execute_turn(battle_move_history)
+    attack_challenger(battle_move_history)
+    end_battle
+    attack_opponent(battle_move_history)
+    end_battle
   end
 
 

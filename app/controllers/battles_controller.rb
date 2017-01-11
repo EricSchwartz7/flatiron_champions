@@ -2,32 +2,30 @@ class BattlesController < ApplicationController
 
   def show
     @battle = Battle.find(params[:id])
-    @challenger_character = Character.find(@battle.challenger_id)
-    @opponent_character = Character.find(@battle.opponent_id)
-    @challenger = User.find(@challenger_character.user_id)
-    @opponent = User.find(@opponent_character.user_id)
+    @challenger_character = @battle.challenger
+    @opponent_character = @battle.opponent
+    @challenger = @challenger_character.user
+    @opponent = @opponent_character.user
   end
 
   def move
-    if it_is_the_users_turn?
-      if challengers_move?
-        @move = Move.new(params[:challenger][:ability])
-      elsif(!!params[:opponent])
-        @move = Move.new(params[:opponent][:ability])
-      else
-        flash[:notice] = 'Valid Move Was NOT Submitted'
-        render :new and return
-      end
-      @move.save
+    @battle = Battle.find(params[:id])
+    @ability_used = CharacterAbility.find(params[:character_ability_id])
+    @moves = @battle.battle_move_history
+    if @battle.valid_move(@ability_used, @moves)
+
+      @move = Move.create(battle_id: @battle.id, character_ability_id: params[:character_ability_id])
     else
-      flash[:notice] = 'It is not your move.'
+      if @battle.battle_over?
+        flash[:notice] = 'You cannot submit a move when the battle is over.'
+      else
+        flash[:notice] = 'Valid Move Was NOT Submitted or you already made your move.'
+      end
+      redirect_to battle_path and return
     end
-
-    if valid_turn
-      execute_turn(moves)
-      redirect_to battle_path
-    end
-
+    @battle.execute_turn(@moves) if @battle.valid_turn(@moves)
+    redirect_to battle_path
+  end
 
 
 end
