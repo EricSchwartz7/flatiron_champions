@@ -10,8 +10,15 @@
 </div>
 
 <div style = "float:left; padding: 20px; margin: 10px; border: 1px solid black; border-radius: 20px;">
-  Character: <%= @challenger_character.char_type  %> <br>
-  HP: <%= @challenger_character.hp  %> <br>
+  Character: <%= @challenger_character.char_type.capitalize  %> <br>
+  HP: <br>
+  <div class="challenger-bar" data-total="<%= @challenger_character.hp  %>" data-value="<%= @challenger_character.hp  %>">
+    <div class="challenger-b-bar" style="width:<%= @challenger_character.hp %>%">
+      </div>
+    </div>
+    <br>
+    <%= @challenger_character.hp %>/ 100
+    <br>
   Level: <%= @challenger_character.level  %> <br>
   <br>
   <%if current_user.id == @challenger.id %>
@@ -28,8 +35,16 @@
 </div>
 
 <div style = "float:right; padding: 20px; margin: 10px; border: 1px solid black; border-radius: 20px;">
-  Character: <%= @opponent_character.char_type  %> <br>
-  HP: <%= @opponent_character.hp  %> <br>
+  Character: <%= @opponent_character.char_type.capitalize  %> <br>
+  HP:
+  <br>
+  <div class="opponent-bar" data-total="<%= @opponent_character.hp  %>" data-value="<%= @opponent_character.hp  %>">
+    <div class="opponent-b-bar" style="width:<%= @opponent_character.hp %>%">
+      </div>
+    </div>
+    <br>
+    <%= @opponent_character.hp %>/ 100
+    <br>
   Level: <%= @opponent_character.level  %> <br>
   <br>
   <%if current_user.id == @opponent.id %>
@@ -49,11 +64,10 @@
 <% if @battle.accepted %>
 <p>Battle Accepted! Make your move! </p>
 <% elsif @battle.accepted == nil %>
-<p>Waiting for your <%= @opponent.nickname %> to accept. </p>
+<p>Waiting for <%= @opponent.nickname %> to accept. </p>
 <% else %>
 <p>Sorry! Your battle has been declined...try again later. </p>
 <% end %>
-</div>
 <ul>
 <% if @battle.moves.count > 0 %>
 <% @battle.moves.each do |move| %>
@@ -64,3 +78,4 @@
 <% if @battle.battle_over? %>
 <p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
 <% end %>
+</div>
