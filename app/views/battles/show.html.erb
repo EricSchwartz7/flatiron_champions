@@ -62,20 +62,30 @@
 <div style="clear:both;">
 <br><br><br><br>
 <% if @battle.accepted %>
-<p>Battle Accepted! Make your move! </p>
+  <p>Battle Accepted! Make your move! </p>
 <% elsif @battle.accepted == nil %>
-<p>Waiting for <%= @opponent.nickname %> to accept. </p>
+  <p>Waiting for <%= @opponent.nickname %> to accept. </p>
 <% else %>
-<p>Sorry! Your battle has been declined...try again later. </p>
+  <p>Sorry! Your battle has been declined...try again later. </p>
 <% end %>
 <ul>
-<% if @battle.moves.count > 0 %>
-<% @battle.moves.each do |move| %>
-<li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.damage %> damage. </li>
-<% end %>
-<% end %>
+  <% if @battle.moves.count % 2 == 0 || @battle.battle_over? %>
+    <% if @battle.moves.count > 0 %>
+      <% @battle.moves.each do |move| %>
+        <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.damage %> damage. </li>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% count = 0 %>
+    <% while count < @battle.moves.count-1 %>
+      <% move = @battle.moves[count]%>
+      <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.damage %> damage. </li>
+      <% count+=1 %>
+    <% end %>
+  <% end %>
 </ul>
-<% if @battle.battle_over? %>
-<p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
-<% end %>
+
+  <% if @battle.battle_over? %>
+    <p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
+  <% end %>
 </div>
