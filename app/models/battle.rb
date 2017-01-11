@@ -8,7 +8,6 @@ class Battle < ApplicationRecord
     [challenger_moves,opponent_moves]
   end
 
-<<<<<<< HEAD
   def valid_move(character_ability, battle_move_history)
     return false if self.battle_over?
     if character_ability.character.id == self.challenger_id
