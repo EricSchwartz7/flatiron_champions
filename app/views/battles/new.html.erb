@@ -1,0 +1,10 @@
+<% if flash[:notice]  %>
+<%= flash[:notice] %>
+<% end %>
+
+<%= form_for @battle do |f| %>
+
+<%= f.collection_radio_buttons(:opponent_id, @users, :id, :nickname)%>
+<%= f.submit 'Battle!' %>
+
+<% end %>

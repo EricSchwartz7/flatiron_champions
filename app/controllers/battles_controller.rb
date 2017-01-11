@@ -1,4 +1,21 @@
 class BattlesController < ApplicationController
+  def new
+    @users = User.where("id != ?", current_user.id)
+    @battle = Battle.new
+
+  end
+
+  def create
+    @battle = Battle.new(challenger_id: current_user.id, opponent_id: params[:battle][:opponent_id])
+    unless Battle.where("challenger_id = ? or opponent_id = ?", @battle.opponent_id, @battle.opponent_id).blank?
+       flash[:notice] = 'That user has an ongoing battle. Please choose another opponent.'
+       redirect_to new_battle_path
+    else
+      @battle.save
+      redirect_to @battle
+    end
+
+  end
 
   def show
     @battle = Battle.find(params[:id])
@@ -26,5 +43,7 @@ class BattlesController < ApplicationController
     @battle.execute_turn(@moves) if @battle.valid_turn(@moves)
     redirect_to battle_path
   end
+
+
 
 end
