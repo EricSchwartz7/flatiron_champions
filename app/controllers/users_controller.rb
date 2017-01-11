@@ -16,7 +16,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def show
     require_login
     @user = current_user

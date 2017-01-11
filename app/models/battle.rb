@@ -20,7 +20,7 @@ class Battle < ApplicationRecord
   end
 
   def valid_turn(battle_move_history)
-    return false if self.moves.count == 0
+    return false if self.moves.blank?
     return battle_move_history.first.count == battle_move_history.last.count
   end
 
@@ -42,8 +42,10 @@ class Battle < ApplicationRecord
     opponent_character = Character.find(self.opponent_id)
     if challenger_character.hp < 1
       @battle.winner_id = opponent_character.id
+      #reset_hp
     elsif opponent_character.hp < 1
       @battle.winner_id = challenger_character.id
+      #reset_hp
     end
     @battle.save
   end
@@ -58,6 +60,12 @@ class Battle < ApplicationRecord
     attack_opponent(battle_move_history)
     end_battle
   end
+
+  # def reset_hp
+  #   @battle = Battle.find(self.id)
+  #   @battle.challenger.hp = 100
+  #   @battle.opponent.hp = 100
+  # end
 
 
 end

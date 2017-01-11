@@ -1,11 +1,13 @@
 <h1><%= @user.nickname %></h1>
-<ul>
-<% @characters.each do |char| %>
-<li><%= link_to char.char_type.capitalize, char %></li>
-<% end %>
+    <ul>
+    <% @characters.each do |char| %>
+    <li><%= link_to char.char_type.capitalize, char %></li>
+    <% end %>
 </ul>
-<button class="battle_button" style="vertical-align:middle"><span>Active Battles</span></button><br>
+    <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
+
 <p class="edit-profile-arrow"><%= link_to 'Edit Profile', edit_user_path %></p><br>
+
 <button class="logout_button" style="vertical-align:middle"><span><%= link_to 'Logout', logout_path %></span></button><br>
 contains active battles color coded, with links to the battles <br>
 along with battle invitations <br>
