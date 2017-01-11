@@ -46,5 +46,21 @@
 
 <div style="clear:both;">
 <br><br><br><br>
-ADD ACTIVITY LOG
+<% if @battle.accepted %>
+<p>Battle Accepted! Make your move! </p>
+<% elsif @battle.accepted == nil %>
+<p>Waiting for your <%= @opponent.nickname %> to accept. </p>
+<% else %>
+<p>Sorry! Your battle has been declined...try again later. </p>
+<% end %>
 </div>
+<ul>
+<% if @battle.moves.count > 0 %>
+<% @battle.moves.each do |move| %>
+<li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.damage %> damage. </li>
+<% end %>
+<% end %>
+</ul>
+<% if @battle.battle_over? %>
+<p><%= User.find(@battle.winner_id).nickname %> has won the battle! Do you want a rematch? </p>
+<% end %>
