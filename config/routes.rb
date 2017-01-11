@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   get '/sessions/new', to: 'sessions#new', as: 'login'
   post '/sessions', to: 'sessions#create'
   post '/battles/:id', to: 'battles#move', as: 'submit_move'
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 59d142cd2f30fe86e352d6af332fae06a9793c08
 
 end
