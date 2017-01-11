@@ -13,11 +13,11 @@
   Character: <%= @challenger_character.char_type.capitalize  %> <br>
   HP: <br>
   <div class="challenger-bar" data-total="<%= @challenger_character.hp  %>" data-value="<%= @challenger_character.hp  %>">
-    <div class="challenger-b-bar" style="width:<%= @challenger_character.hp %>%">
+    <div class="challenger-b-bar" style="width:<%= @battle.challenger_hp %>%">
       </div>
     </div>
     <br>
-    <%= @challenger_character.hp %>/ 100
+    <%= @battle.challenger_hp %>/ 100
     <br>
   Level: <%= @challenger_character.level  %> <br>
   <br>
@@ -39,11 +39,11 @@
   HP:
   <br>
   <div class="opponent-bar" data-total="<%= @opponent_character.hp  %>" data-value="<%= @opponent_character.hp  %>">
-    <div class="opponent-b-bar" style="width:<%= @opponent_character.hp %>%">
+    <div class="opponent-b-bar" style="width:<%= @battle.opponent_hp %>%">
       </div>
     </div>
     <br>
-    <%= @opponent_character.hp %>/ 100
+    <%= @battle.opponent_hp %>/ 100
     <br>
   Level: <%= @opponent_character.level  %> <br>
   <br>

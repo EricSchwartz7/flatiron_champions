@@ -7,7 +7,7 @@ class BattlesController < ApplicationController
 
   def create
     @opponent_character = User.find(params[:battle][:opponent_id]).characters.first
-    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id)
+    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp, accepted: true )
     unless @opponent_character.active_battles.blank?
       flash[:notice] = "That user has an ongoing battle. Please choose another opponent."
       redirect_to new_battle_path
@@ -31,7 +31,6 @@ class BattlesController < ApplicationController
     @ability_used = CharacterAbility.find(params[:character_ability_id])
     @moves = @battle.battle_move_history
     if @battle.valid_move(@ability_used, @moves)
-
       @move = Move.create(battle_id: @battle.id, character_ability_id: params[:character_ability_id])
     else
       if @battle.battle_over?
@@ -41,8 +40,9 @@ class BattlesController < ApplicationController
       end
       redirect_to battle_path and return
     end
-    @moves = @battle.battle_move_history
-    @battle.execute_turn(@moves) if @battle.valid_turn(@moves)
+    @battle = Battle.find(params[:id])
+    @updated_moves = @battle.battle_move_history
+    @battle.execute_turn(@updated_moves) if @battle.valid_turn(@updated_moves)
     redirect_to battle_path
   end
 
