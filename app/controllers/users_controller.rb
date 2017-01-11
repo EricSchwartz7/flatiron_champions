@@ -20,6 +20,9 @@ class UsersController < ApplicationController
     require_login
     @user = current_user
     @characters = @user.characters
+    @current_character_id = @characters.first.id
+    # @active_battle = Battle.where("challenger_id = ? or opponent_id = ?", @current_character_id, @current_character_id).last
+    @active_battle = @characters.first.active_battles.last
   end
 
   def edit

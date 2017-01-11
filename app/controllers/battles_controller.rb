@@ -6,10 +6,11 @@ class BattlesController < ApplicationController
   end
 
   def create
-    @battle = Battle.new(challenger_id: current_user.id, opponent_id: params[:battle][:opponent_id])
-    unless Battle.where("challenger_id = ? or opponent_id = ?", @battle.opponent_id, @battle.opponent_id).blank?
-       flash[:notice] = 'That user has an ongoing battle. Please choose another opponent.'
-       redirect_to new_battle_path
+    @opponent_character = User.find(params[:battle][:opponent_id]).characters.first
+    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id)
+    unless @opponent_character.active_battles.blank?
+      flash[:notice] = "That user has an ongoing battle. Please choose another opponent."
+      redirect_to new_battle_path
     else
       @battle.save
       redirect_to @battle
@@ -40,6 +41,7 @@ class BattlesController < ApplicationController
       end
       redirect_to battle_path and return
     end
+    @moves = @battle.battle_move_history
     @battle.execute_turn(@moves) if @battle.valid_turn(@moves)
     redirect_to battle_path
   end
