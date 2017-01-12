@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111201722) do
+ActiveRecord::Schema.define(version: 20170112164215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "abilities", force: :cascade do |t|
     t.string   "name"
-    t.integer  "damage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "reliability"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "char_type"
   end
 
@@ -41,11 +41,13 @@ ActiveRecord::Schema.define(version: 20170111201722) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "char_type"
-    t.integer  "level",      default: 1
-    t.integer  "hp",         default: 100
+    t.integer  "xp",            default: 0
+    t.integer  "hp",            default: 100
     t.integer  "user_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "picture_front"
+    t.string   "picture_back"
   end
 
   create_table "moves", force: :cascade do |t|

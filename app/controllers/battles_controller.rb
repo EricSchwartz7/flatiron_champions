@@ -2,17 +2,35 @@ class BattlesController < ApplicationController
   before_action :require_login
 
   def new
-    @users = User.where("id != ?", current_user.id)
+    users = User.where("id != ?", current_user.id)
+    @inactive_users = users.select { |user| user.characters.first.active_battle.nil? }
+    @active_users = users.select { |user| !user.characters.first.active_battle.nil? }
+    @active_battles = Battle.where(winner_id: nil) & Battle.where.not(accepted: false)
     @battle = Battle.new
   end
 
   def create
     @opponent_character = User.find(params[:battle][:opponent_id]).characters.first
-    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp, accepted: true )
-    unless @opponent_character.active_battles.blank?
+    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp)
+    unless @opponent_character.active_battle.nil?
       flash[:notice] = "That user has an ongoing battle. Please choose another opponent."
       redirect_to new_battle_path
     else
+      @battle.save
+      redirect_to @battle
+    end
+  end
+
+  def challenge_response
+    @user = current_user
+    if params[:invite] == 'decline'
+      @battle = current_user.characters.first.active_invitation
+      @battle.accepted = false
+      @battle.save
+      redirect_to @user
+    elsif params[:invite] == 'accept'
+      @battle = current_user.characters.first.active_invitation
+      @battle.accepted = true
       @battle.save
       redirect_to @battle
     end
@@ -34,8 +52,7 @@ class BattlesController < ApplicationController
 
     @battle = Battle.find(params[:id])
     @ability_used = CharacterAbility.find(params[:character_ability_id])
-    @moves = @battle.battle_move_history
-    if @battle.valid_move(@ability_used, @moves)
+    if @battle.valid_move(@ability_used)
       @move = Move.create(battle_id: @battle.id, character_ability_id: params[:character_ability_id])
     else
       if @battle.battle_over?
@@ -47,7 +64,7 @@ class BattlesController < ApplicationController
     end
     @battle = Battle.find(params[:id])
     @updated_moves = @battle.battle_move_history
-    @battle.execute_turn(@updated_moves) if @battle.valid_turn(@updated_moves)
+    @battle.execute_turn if @battle.valid_turn(@updated_moves)
     redirect_to battle_path
   end
 
@@ -69,6 +86,13 @@ class BattlesController < ApplicationController
 
     # turn executes
 
+
+
+  def destroy
+    @user = current_user
+    @battle = @user.characters.first.active_challenge
+    @battle.destroy
+    redirect_to @user
 
   end
 

@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create'
 
   get '/battles/new'
+
+
+  get '/battles/challenge_response'
+  get '/battles/destroy'
+
   post '/battles/:id', to: 'battles#move', as: 'submit_move'
 
   get '/stats/global', to: 'stats#global', as: 'global_stats'

@@ -1,5 +1,12 @@
 class SessionsController < ApplicationController
 
+  def new
+    @user = current_user
+    if !!current_user
+      redirect_to @user
+    end
+  end
+
   def create
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
@@ -15,5 +22,5 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to login_path
   end
-  
+
 end
