@@ -1,6 +1,6 @@
 class BattlesController < ApplicationController
   before_action :require_login
-  
+
   def new
     @users = User.where("id != ?", current_user.id)
     @battle = Battle.new
@@ -51,6 +51,25 @@ class BattlesController < ApplicationController
     redirect_to battle_path
   end
 
+  def train
 
+    # select a random pokemon
+
+      #gives it a random level
+
+    # creates the battle
+
+  end
+
+  def train_move
+
+    #user submits move
+
+    #random moves selected for AI
+
+    # turn executes
+
+
+  end
 
 end
