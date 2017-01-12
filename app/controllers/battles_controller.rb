@@ -8,7 +8,7 @@ class BattlesController < ApplicationController
 
   def create
     @opponent_character = User.find(params[:battle][:opponent_id]).characters.first
-    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp, accepted: true )
+    @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp)
     unless @opponent_character.active_battles.blank?
       flash[:notice] = "That user has an ongoing battle. Please choose another opponent."
       redirect_to new_battle_path
@@ -19,7 +19,19 @@ class BattlesController < ApplicationController
   end
 
   def show
-    @battle = Battle.find(params[:id])
+    @user = current_user
+    if params[:invite] == 'decline'
+      @battle = current_user.characters.first.active_battles.last
+      @battle.accepted = false
+      @battle.save
+      redirect_to @user
+    elsif params[:invite] == 'accept'
+      @battle = current_user.characters.first.active_battles.last
+      @battle.accepted = true
+      @battle.save
+    else
+      @battle = Battle.find(params[:id])
+    end
     @challenger_character = @battle.challenger
     @opponent_character = @battle.opponent
     @challenger = @challenger_character.user

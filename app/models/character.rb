@@ -21,7 +21,7 @@ class Character < ApplicationRecord
   def active_battles
     if !self.battles.blank?
       self.battles.select do |battle|
-        battle.winner_id == nil
+        battle.winner_id == nil && battle.accepted != false
       end
     else
       []
