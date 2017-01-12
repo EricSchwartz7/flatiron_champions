@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     @user = current_user
-    if current_user
+    if !!current_user
       redirect_to @user
     end
   end

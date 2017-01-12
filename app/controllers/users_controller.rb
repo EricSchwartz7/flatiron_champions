@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :require_login, only: [:show]
+
   def new
     @user = User.new
   end
@@ -17,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    require_login
+    # require_login
     @user = current_user
     @characters = @user.characters
     @current_character_id = @characters.first.id
