@@ -28,4 +28,9 @@ class Character < ApplicationRecord
     end
   end
 
+  def level
+    (((self.xp+50)/25)**0.5).to_i
+  end
+
+
 end

@@ -8,7 +8,7 @@ class Battle < ApplicationRecord
     [challenger_moves,opponent_moves]
   end
 
-  def valid_move(character_ability, battle_move_history)
+  def valid_move(character_ability)
     return false if self.battle_over?
     if character_ability.character.id == self.challenger_id
       battle_move_history.first.count == battle_move_history.last.count || battle_move_history.first.count == (battle_move_history.last.count - 1)
@@ -25,36 +25,53 @@ class Battle < ApplicationRecord
   end
 
   def attack_challenger(battle_move_history)
-    @battle = Battle.find(self.id)
-    @battle.challenger_hp -= battle_move_history.last.last.character_ability.ability.damage
-    @battle.save
+    self.challenger_hp -= (calculate_power(battle_move_history.last.last.character_ability.ability.reliability)*((self.opponent.level.to_f/self.challenger.level.to_f)**0.25)).to_i
+    self.save
   end
 
   def attack_opponent(battle_move_history)
-    @battle = Battle.find(self.id)
-    @battle.opponent_hp -= battle_move_history.first.last.character_ability.ability.damage
-    @battle.save
+    self.opponent_hp -=
+     (calculate_power(battle_move_history.first.last.character_ability.ability.reliability)*((self.challenger.level.to_f/self.opponent.level.to_f)**0.25)).to_i
+    self.save
+  end
+
+  def calculate_power(reliability)
+    ((((reliability..10+reliability).to_a) + (((30-reliability..40-reliability)).to_a)).sample/2)
   end
 
   def end_battle
-    @battle = Battle.find(self.id)
-    if @battle.challenger_hp < 1
-      @battle.winner_id = @battle.opponent.id
-    elsif @battle.opponent_hp < 1
-      @battle.winner_id = @battle.challenger.id
+    challenger = self.challenger
+    opponent = self.opponent
+    if self.challenger_hp < 1
+      self.challenger_hp = 0
     end
-    @battle.save
+    if self.opponent_hp < 1
+      self.opponent_hp = 0
+    end
+
+    if self.challenger_hp < 1
+      self.winner_id = self.opponent.id
+      opponent.xp += ((10+self.opponent_hp)*(challenger.level.to_f/opponent.level.to_f).to_f).to_i
+      opponent.save
+    elsif self.opponent_hp < 1
+      self.winner_id = self.challenger.id
+      challenger.xp += ((10+self.challenger_hp)*(opponent.level.to_f/challenger.level.to_f)).to_i
+      binding.pry
+      challenger.save
+    end
+    self.save
   end
 
   def battle_over?
     !!self.winner_id
   end
 
-  def execute_turn(battle_move_history)
+  def execute_turn
     attack_challenger(battle_move_history)
     end_battle
     attack_opponent(battle_move_history)
     end_battle
   end
+
 
 end
