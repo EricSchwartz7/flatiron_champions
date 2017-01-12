@@ -2,23 +2,42 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.profile-arrow {
-	display: inline-block;
-	position: relative;
-	background: orange;
-	padding: 15px;
+.back-profile-button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #ff8c00;
+  border: none;
+  color: #FFFFFF;
+  text-align: middle;
+  font-size: 15px;
+  padding: 12px;
+  width: 125px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
-.profile-arrow:after {
-	content: '';
-	display: block;
-	position: absolute;
-	right: 100%;
-	top: 50%;
-	margin-top: -10px;
-	width: 0;
-	height: 0;
-  border-top: 10px solid transparent;
-	border-right: 10px solid orange;
-	border-bottom: 10px solid transparent;
-	border-left: 10px solid transparent;
+
+.back-profile-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.back-profile-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.back-profile-button:hover span {
+  padding-left: 25px;
+}
+
+.back-profile-button:hover span:after {
+  opacity: 1;
+  left: 0;
 }
