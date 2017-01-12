@@ -85,6 +85,7 @@ class BattlesController < ApplicationController
     #random moves selected for AI
 
     # turn executes
+  end
 
 
 

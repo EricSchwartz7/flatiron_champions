@@ -1,95 +1,115 @@
-<h1><%= @challenger.nickname %> VS. <%= @opponent.nickname %></h1>
-<br>
-<% if @battle.battle_over? %>
-<h1> <%= Character.find(@battle.winner_id).user.nickname %> Wins </h1>
-<% end %>
-<div>
-  <% if flash[:notice] %>
-    <%= flash[:notice] %>
-  <% end %>
-</div>
+<div class="container">
 
-<div style = "float:left; padding: 20px; margin: 10px; border: 1px solid black; border-radius: 20px;">
-  Character: <%= @challenger_character.char_type.capitalize  %> <br>
-  HP: <br>
-  <div class="challenger-bar" data-total="<%= @challenger_character.hp  %>" data-value="<%= @challenger_character.hp  %>">
-    <div class="challenger-b-bar" style="width:<%= @battle.challenger_hp %>%">
-      </div>
-    </div>
-    <br>
-    <%= @battle.challenger_hp %>/ 100
-    <br>
-  Level: <%= @challenger_character.level  %> <br>
-  XP: <%= @challenger_character.xp  %> <br>
-  <br>
-  <% if current_user.id == @opponent.id %>
-    <%= form_tag submit_move_path do %>
-      <% @opponent_character.character_abilities.each do |character_ability| %>
-        <%= radio_button_tag 'character_ability_id', "#{character_ability.id}" %>
-        <%= label_tag "#{character_ability.ability.name}" %> <br>
-        <% end %>
-        <br>
-        <%= submit_tag 'Submit Move' %>
-    <% end %>
-  <% end %>
-    </ul>
-    </div>
-</div>
-
-
-<div style = "float:right; padding: 20px; margin: 10px; border: 1px solid black; border-radius: 20px;">
-  Character: <%= @opponent_character.char_type.capitalize  %> <br>
-  HP:
-  <br>
-  <div class="opponent-bar" data-total="<%= @opponent_character.hp  %>" data-value="<%= @opponent_character.hp  %>">
-    <div class="opponent-b-bar" style="width:<%= @battle.opponent_hp %>%">
-      </div>
-    </div>
-    <br>
-    <%= @battle.opponent_hp %>/ 100
-    <br>
-  Level: <%= @opponent_character.level  %> <br>
-  XP: <%= @opponent_character.xp  %> <br>
-  <br>
-  <%if current_user.id == @opponent.id %>
-    <%= form_tag submit_move_path do %>
-      <% @opponent_character.character_abilities.each do |character_ability| %>
-        <%= radio_button_tag 'character_ability_id', "#{character_ability.id}" %>
-        <%= label_tag "#{character_ability.ability.name}" %> <br>
-        <% end %>
-        <br>
-        <%= submit_tag 'Submit Move' %>
-    <% end %>
-  <% end %>
-</div>
-
-<div style="clear:both;">
-<br><br><br><br>
-<% if @battle.accepted %>
-  <p>Battle Accepted! Make your move! </p>
-<% elsif @battle.accepted == nil %>
-  <p>Waiting for <%= @opponent.nickname %> to accept. </p>
-<% else %>
-  <p>Sorry! Your battle has been declined...try again later. </p>
-<% end %>
-<ul>
-  <% if @battle.moves.count % 2 == 0 || @battle.battle_over? %>
-    <% if @battle.moves.count > 0 %>
-      <% @battle.moves.each do |move| %>
-        <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
-      <% end %>
-    <% end %>
-  <% else %>
-    <% count = 0 %>
-    <% while count < @battle.moves.count-1 %>
-      <% move = @battle.moves[count]%>
-      <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
-      <% count+=1 %>
-    <% end %>
-  <% end %>
-</ul>
+  <h1><%= @challenger.nickname %> VS. <%= @opponent.nickname %></h1>
 
   <% if @battle.battle_over? %>
-    <p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
+    <h1> <%= Character.find(@battle.winner_id).user.nickname %> Wins </h1>
   <% end %>
+
+  <div>
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col s4">
+
+      <div style = "padding: 20px; border: 1px solid black; border-radius: 20px;">
+        Character: <%= @challenger_character.char_type.capitalize  %> <br>
+        HP: <br>
+
+        <div class="challenger-bar" data-total="<%= @challenger_character.hp  %>" data-value="<%= @challenger_character.hp  %>">
+          <div class="challenger-b-bar" style="width:<%= @battle.challenger_hp %>%">
+          </div>
+        </div>
+          <br>
+          <%= @battle.challenger_hp %>/ 100 <br>
+        Level: <%= @challenger_character.level  %> <br>
+        XP: <%= @challenger_character.xp  %> <br>
+        <br>
+        <% if current_user.id == @opponent.id %>
+          <%= form_tag submit_move_path do %>
+            <% @opponent_character.character_abilities.each do |character_ability| %>
+              <%= radio_button_tag 'character_ability_id', "#{character_ability.id}" %>
+              <%= label_tag "#{character_ability.ability.name}" %> <br>
+              <% end %>
+              <br>
+              <%= submit_tag 'Submit Move' %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+
+
+    <div class="col s4 offset-s4">
+      <div style = "padding: 20px; border: 1px solid black; border-radius: 20px;">
+        Character: <%= @opponent_character.char_type.capitalize  %> <br>
+        HP:
+        <br>
+
+        <div class="opponent-bar" data-total="<%= @opponent_character.hp  %>" data-value="<%= @opponent_character.hp  %>">
+          <div class="opponent-b-bar" style="width:<%= @battle.opponent_hp %>%">
+          </div>
+        </div>
+
+          <br>
+          <%= @battle.opponent_hp %>/ 100
+          <br>
+        Level: <%= @opponent_character.level  %> <br>
+        XP: <%= @opponent_character.xp  %> <br>
+        <br>
+
+        <%if current_user.id == @opponent.id %>
+          <%= form_tag submit_move_path do %>
+            <% @opponent_character.character_abilities.each do |character_ability| %>
+              <%= radio_button_tag 'character_ability_id', "#{character_ability.id}" %>
+              <%= label_tag "#{character_ability.ability.name}" %> <br>
+              <% end %>
+              <br>
+              <%= submit_tag 'Submit Move' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br>
+
+  <div class="row">
+  <div class="col s12">
+
+  <% if @battle.accepted %>
+    <p>Battle Accepted! Make your move! </p>
+  <% elsif @battle.accepted == nil %>
+    <p>Waiting for <%= @opponent.nickname %> to accept. </p>
+  <% else %>
+    <p>Sorry! Your battle has been declined...try again later. </p>
+  <% end %>
+  <ul>
+    <% if @battle.moves.count % 2 == 0 || @battle.battle_over? %>
+      <% if @battle.moves.count > 0 %>
+        <% @battle.moves.each do |move| %>
+          <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% count = 0 %>
+      <% while count < @battle.moves.count-1 %>
+        <% move = @battle.moves[count]%>
+        <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
+        <% count+=1 %>
+      <% end %>
+    <% end %>
+  </ul>
+
+    <% if @battle.battle_over? %>
+      <p><%= Character.find(@battle.winner_id).user.nickname %> has won the battle! Do you want a rematch? </p>
+    <% end %>
+  </div>
+
+  </div>
+  </div>
+
 </div>

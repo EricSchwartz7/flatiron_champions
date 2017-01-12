@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Start a Battle</h1>
 
 <% if flash[:notice]  %>
@@ -5,7 +7,8 @@
 <% end %>
 
 <%= form_for @battle do |f| %>
-<%= f.collection_select(:opponent_id, @inactive_users, :id, :nickname)%>
+<%= f.collection_select(:opponent_id, @inactive_users, :id, :nickname, class: "show-select")%>
+<br>
 <%= f.submit 'Battle!' %>
 <% end %>
 
@@ -15,3 +18,5 @@
   <li><%= "#{battle.challenger.user.nickname} vs #{battle.opponent.user.nickname}" %></li>
 <% end %>
 </ul>
+
+</div>
