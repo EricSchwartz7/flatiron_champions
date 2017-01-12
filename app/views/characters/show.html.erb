@@ -5,14 +5,16 @@
         <thead>
           <tr>
               <th data-field="Ability">Ability</th>
-              <th data-field="Damage">Damage</th>
+              <th data-field="Reliability">Reliability</th>
+              <th data-field="Max Damage">Max Damage</th>
           </tr>
         </thead>
         <tbody>
             <% @character.abilities.each do |ability| %>
             <tr>
             <td><%= ability.slug_name %></td>
-            <td><%= ability.damage %></td>
+            <td><%= ability.reliability %></td>
+            <td><%= 40-ability.reliability %></td>
           </tr>
           <% end %>
         </tbody>
