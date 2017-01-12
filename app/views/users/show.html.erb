@@ -5,12 +5,24 @@
     <% end %>
 </ul>
 
-<p>Active Battles:</p>
 <% unless @active_battle == nil %>
-  <%= link_to "#{@active_battle.challenger.user.nickname} vs #{@active_battle.opponent.user.nickname}", @active_battle %>
+  <% if @active_battle.accepted == nil %>
+    <p>Battle Invitations:</p>
+    <%= "#{@active_battle.challenger.user.nickname} wants to battle. Do you accept?" %><br>
+      <%= form_tag @active_battle, method: :get do %>
+        <%= label_tag :accept %>
+        <%= radio_button_tag :invite, 'accept' %><br>
+        <%= label_tag :decline %>
+        <%= radio_button_tag :invite, 'decline' %><br>
+        <%= submit_tag 'Submit' %>
+      <% end %>
+  <% else %>
+    <p>Active Battles:</p>
+    <%= link_to "#{@active_battle.challenger.user.nickname} vs #{@active_battle.opponent.user.nickname}", @active_battle %>
+  <% end %>
 <% end %>
 <br>
 
 <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
-   <a class="edit-profile-arrow" style="vertical-align:middle" href="/users/<%= @user.id %>/edit"> <span>Edit Profile</span></a><br>
-   <a class="logout_button" style="vertical-align:middle" href="/sessions"> <span>Logout</span> </a><br>
+<a class="edit-profile-arrow" style="vertical-align:middle" href="/users/<%= @user.id %>/edit"> <span>Edit Profile</span></a><br>
+<a class="logout_button" style="vertical-align:middle" href="/sessions"> <span>Logout</span> </a><br>
