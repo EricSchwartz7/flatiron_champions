@@ -68,11 +68,32 @@ class BattlesController < ApplicationController
     redirect_to battle_path
   end
 
+  def train
+
+    # select a random pokemon
+
+      #gives it a random level
+
+    # creates the battle
+
+  end
+
+  def train_move
+
+    #user submits move
+
+    #random moves selected for AI
+
+    # turn executes
+
+
+
   def destroy
     @user = current_user
     @battle = @user.characters.first.active_challenge
     @battle.destroy
     redirect_to @user
+
   end
 
 end

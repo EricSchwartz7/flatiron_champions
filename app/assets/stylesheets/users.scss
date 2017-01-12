@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.no-bullets {
+  list-style: none;
+  margin-left: -40px;
+}
+
 .battle_button {
   display: inline-block;
   border-radius: 3px;

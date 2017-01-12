@@ -1,0 +1,101 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col s12" style="text-align: center">
+      <div style="padding: 25px;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s6 offset-s3" style="text-align: center">
+
+      <div style="border: 1px solid black; width: 500px; margin: 0 auto;">
+
+        <h1>Leaderboard</h1>
+
+          <h3>Most Wins:</h3>
+            <ul class="no-bullets">
+              <% @wins.each do |player_id| %>
+                <li><%= "#{User.find(player_id.first).nickname} : #{player_id.last}" %></li>
+              <% end %>
+            </ul>
+            <br>
+          <h3>Most Losses:</h3>
+            <ol>
+
+            </ol>
+
+          <h3>Highest Level Characters:</h3>
+            <ol>
+
+            </ol>
+
+          <h3>KDRs</h3>
+            <ol>
+
+            </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12" style="text-align: center">
+
+      <div style="padding: 50px;"></div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12" style="text-align: center">
+      <div style="border: 1px solid black; width: 500px; margin: 0 auto;">
+
+        <h1>Global</h1>
+
+          <h3> <%= "Total Users: #{@users}" %></h3>
+
+          <h3>Total Characters: <%= "#{@characters}" %></h3>
+
+          <h3>Total Battles Completed: <%= "#{@battles_completed}" %></h3>
+
+          <h3>Total Battles In-Progress: <%= "#{@battles_in_progress}" %></h3>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12" style="text-align: center">
+      <div style="padding: 50px;"></div>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col s12" style="text-align: center">
+        <div style="border: 1px solid black; width: 500px; margin: 0 auto;">
+
+        <h1>Stats</h1>
+
+          <h3>Battles Created By Day</h3>
+            <%= line_chart Battle.group_by_day(:created_at).count %>
+
+          <h3>Most Used Character:</h3>
+            <ul class="no-bullets">
+              <% @most_used_char.each do |char| %>
+                <li><%= "#{char.first} : #{char.last}" %></li>
+              <% end %>
+            </ul>
+
+            <%= pie_chart @most_used_char %>
+
+          <h3>Most Move Used:</h3>
+            <ol>
+
+            </ol>
+
+        </div>
+      </div>
+    </div>
+</div>
