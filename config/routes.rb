@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'users#show'
 
   get '/users/new', to: 'users#new', as: 'signup'
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get '/battles/new'
   post '/battles/:id', to: 'battles#move', as: 'submit_move'
+
+  get '/stats/global', to: 'stats#global', as: 'global_stats'
 
 
   resources :moves

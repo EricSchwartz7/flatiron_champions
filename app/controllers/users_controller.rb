@@ -38,9 +38,7 @@ class UsersController < ApplicationController
   def delete
   end
 
-  def stats
-    
-  end
+
 
   private
 
