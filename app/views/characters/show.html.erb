@@ -1,18 +1,24 @@
+<div class="center-align">
 <h1><%= @character.char_type.capitalize %></h1>
-<table>
-  <thead>
-    <tr>
-      <th>Ability</th>
-      <th>Damage</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @character.abilities.each do |ability| %>
-    <tr>
-      <td><%= ability.slug_name %></td>
-      <td><%= ability.damage %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<p><div class="profile-arrow"><%= link_to 'Back to Profile', @character.user %></div></p>
+<ul class="container">
+<table class="highlight">
+        <thead>
+          <tr>
+              <th data-field="Ability">Ability</th>
+              <th data-field="Reliability">Reliability</th>
+              <th data-field="Max Damage">Max Damage</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @character.abilities.each do |ability| %>
+            <tr>
+            <td><%= ability.slug_name %></td>
+            <td><%= ability.reliability %></td>
+            <td><%= 40-ability.reliability %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+      <a class="back-profile-button" style="vertical-align:middle" href="/users/<%= @character.user.id %>"> <span>Back to Profile</span></a><br>
+

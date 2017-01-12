@@ -52,8 +52,7 @@ class BattlesController < ApplicationController
 
     @battle = Battle.find(params[:id])
     @ability_used = CharacterAbility.find(params[:character_ability_id])
-    @moves = @battle.battle_move_history
-    if @battle.valid_move(@ability_used, @moves)
+    if @battle.valid_move(@ability_used)
       @move = Move.create(battle_id: @battle.id, character_ability_id: params[:character_ability_id])
     else
       if @battle.battle_over?
@@ -65,7 +64,7 @@ class BattlesController < ApplicationController
     end
     @battle = Battle.find(params[:id])
     @updated_moves = @battle.battle_move_history
-    @battle.execute_turn(@updated_moves) if @battle.valid_turn(@updated_moves)
+    @battle.execute_turn if @battle.valid_turn(@updated_moves)
     redirect_to battle_path
   end
 

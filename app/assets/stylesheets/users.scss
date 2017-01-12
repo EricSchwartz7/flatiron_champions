@@ -42,25 +42,44 @@
   right: 0;
 }
 
-.edit-profile-arrow {
-	display: inline-block;
-	position: relative;
-	background: darkcyan;
-	padding: 15px;
+.edit-profile-button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #008b8b;
+  border: none;
+  color: #FFFFFF;
+  text-align: middle;
+  font-size: 15px;
+  padding: 12px;
+  width: 125px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
-.edit-profile-arrow:after {
-	content: '';
-	display: block;
-	position: absolute;
-	right: 100%;
-	top: 50%;
-	margin-top: -10px;
-	width: 0;
-	height: 0;
-	border-top: 10px solid transparent;
-	border-right: 10px solid darkcyan;
-	border-bottom: 10px solid transparent;
-	border-left: 10px solid transparent;
+
+.edit-profile-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.edit-profile-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.edit-profile-button:hover span {
+  padding-left: 25px;
+}
+
+.edit-profile-button:hover span:after {
+  opacity: 1;
+  left: 0;
 }
 
 .logout_button {
@@ -99,6 +118,86 @@
 }
 
 .logout_button:hover span:after {
+  opacity: 1;
+  left: 0;
+}
+
+.sign-up-button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #008b8b;
+  border: none;
+  color: #FFFFFF;
+  text-align: middle;
+  font-size: 15px;
+  padding: 12px;
+  width: 125px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.sign-up-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.sign-up-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.sign-up-button:hover span {
+  padding-left: 25px;
+}
+
+.sign-up-button:hover span:after {
+  opacity: 1;
+  left: 0;
+}
+
+.update-profile-button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #008b8b;
+  border: none;
+  color: #FFFFFF;
+  text-align: middle;
+  font-size: 15px;
+  padding: 12px;
+  width: 125px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.update-profile-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.update-profile-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.update-profile-button:hover span {
+  padding-left: 25px;
+}
+
+.update-profile-button:hover span:after {
   opacity: 1;
   left: 0;
 }

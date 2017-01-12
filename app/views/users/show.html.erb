@@ -1,5 +1,7 @@
+<div class="center-align">
 <h1><%= @user.nickname %></h1>
-    <ul>
+</div>
+<ul class="container">
     <% @characters.each do |char| %>
     <li><%= link_to char.char_type.capitalize, char %></li>
     <% end %>
@@ -26,5 +28,5 @@
 <% if @active_battle == nil && @active_challenge == nil %>
   <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
 <% end %>
-<a class="edit-profile-arrow" style="vertical-align:middle" href="/users/<%= @user.id %>/edit"> <span>Edit Profile</span></a><br>
+<a class="edit-profile-button" style="vertical-align:middle" href="/users/<%= @user.id %>/edit"> <span>Edit Profile</span></a><br>
 <a class="logout_button" style="vertical-align:middle" href="/sessions"> <span>Logout</span> </a><br>
