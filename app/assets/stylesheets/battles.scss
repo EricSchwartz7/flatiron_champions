@@ -1,6 +1,39 @@
 // Place all the styles related to the battles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  background-color: #90a4ae;
+}
+p {
+  color: white;
+
+}
+
+// start
+select {
+  display: block !important;
+}
+
+input[type='checkbox'] {
+  position: relative !important;
+  left: 0px !important;
+  opacity: 100;
+}
+
+input[type="radio"]:not(:checked) {
+  position: relative !important;
+  left: 0px !important;
+  opacity: 100;
+}
+
+input[type="radio"]:checked {
+  position: relative !important;
+  left: 0px !important;
+  opacity: 100;
+}
+
+
 .challenger-bar {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
