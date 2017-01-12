@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :require_login, only: [:show]
+
   def new
     @user = User.new
   end
@@ -17,12 +19,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    require_login
+    # require_login
     @user = current_user
     @characters = @user.characters
     @current_character_id = @characters.first.id
-    @active_battle = @characters.first.active_battles.last
-    # binding.pry
+    @active_battle = @characters.first.active_battle
+    @active_challenge = @characters.first.active_challenge
+    @active_invitation = @characters.first.active_invitation
+    # if @active_battle
+    #   @active_challenge = @active_battle if @active_battle.challenger == current_user.characters.first
+    # end
   end
 
   def edit

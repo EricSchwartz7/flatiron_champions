@@ -2,14 +2,17 @@ class BattlesController < ApplicationController
   before_action :require_login
 
   def new
-    @users = User.where("id != ?", current_user.id)
+    users = User.where("id != ?", current_user.id)
+    @inactive_users = users.select { |user| user.characters.first.active_battle.nil? }
+    @active_users = users.select { |user| !user.characters.first.active_battle.nil? }
+    @active_battles = Battle.where(winner_id: nil) & Battle.where.not(accepted: false)
     @battle = Battle.new
   end
 
   def create
     @opponent_character = User.find(params[:battle][:opponent_id]).characters.first
     @battle = Battle.new(challenger_id: current_user.characters.first.id, opponent_id: @opponent_character.id, challenger_hp: current_user.characters.first.hp, opponent_hp: @opponent_character.hp)
-    unless @opponent_character.active_battles.blank?
+    unless @opponent_character.active_battle.nil?
       flash[:notice] = "That user has an ongoing battle. Please choose another opponent."
       redirect_to new_battle_path
     else
@@ -18,20 +21,23 @@ class BattlesController < ApplicationController
     end
   end
 
-  def show
+  def challenge_response
     @user = current_user
     if params[:invite] == 'decline'
-      @battle = current_user.characters.first.active_battles.last
+      @battle = current_user.characters.first.active_invitation
       @battle.accepted = false
       @battle.save
       redirect_to @user
     elsif params[:invite] == 'accept'
-      @battle = current_user.characters.first.active_battles.last
+      @battle = current_user.characters.first.active_invitation
       @battle.accepted = true
       @battle.save
-    else
-      @battle = Battle.find(params[:id])
+      redirect_to @battle
     end
+  end
+
+  def show
+    @battle = Battle.find(params[:id])
     @challenger_character = @battle.challenger
     @opponent_character = @battle.opponent
     @challenger = @challenger_character.user
@@ -62,6 +68,11 @@ class BattlesController < ApplicationController
     redirect_to battle_path
   end
 
-
+  def destroy
+    @user = current_user
+    @battle = @user.characters.first.active_challenge
+    @battle.destroy
+    redirect_to @user
+  end
 
 end

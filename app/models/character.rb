@@ -18,19 +18,24 @@ class Character < ApplicationRecord
     self.battles_where_challenger + self.battles_where_opponent
   end
 
-  def active_battles
+  def active_challenge
+    (self.battles_where_challenger & Battle.where(accepted: nil)).last
+  end
+
+  def active_invitation
+    (self.battles_where_opponent & Battle.where(accepted: nil)).last
+  end
+
+  def active_battle
     if !self.battles.blank?
-      self.battles.select do |battle|
-        battle.winner_id == nil && battle.accepted != false
+      self.battles.find do |battle|
+        battle.winner_id == nil && battle.accepted == true
       end
-    else
-      []
     end
   end
 
   def level
     (((self.xp+50)/25)**0.5).to_i
   end
-
 
 end
