@@ -25,10 +25,7 @@ class UsersController < ApplicationController
     @current_character_id = @characters.first.id
     @active_battle = @characters.first.active_battle
     @active_challenge = @characters.first.active_challenge
-    @active_invitation = @characters.first.active_invitation
-    # if @active_battle
-    #   @active_challenge = @active_battle if @active_battle.challenger == current_user.characters.first
-    # end
+    @active_invitations = @characters.first.active_invitations
   end
 
   def edit

@@ -22,8 +22,8 @@ class Character < ApplicationRecord
     (self.battles_where_challenger & Battle.where(accepted: nil)).last
   end
 
-  def active_invitation
-    (self.battles_where_opponent & Battle.where(accepted: nil)).last
+  def active_invitations
+    self.battles_where_opponent & Battle.where(accepted: nil)
   end
 
   def active_battle
@@ -36,6 +36,10 @@ class Character < ApplicationRecord
 
   def level
     (((self.xp+50)/25)**0.5).to_i
+  end
+
+  def destroy_all_invitations
+    self.active_invitations.each { |invitation| invitation.destroy }
   end
 
 end

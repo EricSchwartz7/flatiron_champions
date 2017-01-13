@@ -17,6 +17,8 @@ class BattlesController < ApplicationController
       redirect_to new_battle_path
     else
       @battle.save
+      @user = current_user
+      @user.characters.first.destroy_all_invitations
       redirect_to @battle
     end
   end
@@ -24,14 +26,18 @@ class BattlesController < ApplicationController
   def challenge_response
     @user = current_user
     if params[:invite] == 'decline'
-      @battle = current_user.characters.first.active_invitation
+      # @battle = current_user.characters.first.active_invitation
+      @battle = Battle.find(params[:battle_id])
       @battle.accepted = false
       @battle.save
       redirect_to @user
     elsif params[:invite] == 'accept'
-      @battle = current_user.characters.first.active_invitation
+      # @battle = current_user.characters.first.active_invitation
+      @battle = Battle.find(params[:battle_id])
       @battle.accepted = true
       @battle.save
+      # @user.characters.first.active_invitations.each { |invitation| invitation.destroy }
+      @user.characters.first.destroy_all_invitations
       redirect_to @battle
     end
   end
