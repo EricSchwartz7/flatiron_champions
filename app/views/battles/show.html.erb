@@ -95,14 +95,14 @@
     <% if @battle.moves.count % 2 == 0 || @battle.battle_over? %>
       <% if @battle.moves.count > 0 %>
         <% @battle.moves.each do |move| %>
-          <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
+          <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %>.</li>
         <% end %>
       <% end %>
     <% else %>
       <% count = 0 %>
       <% while count < @battle.moves.count-1 %>
         <% move = @battle.moves[count]%>
-        <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %> and has made <%= move.character_ability.ability.reliability %> damage. </li>
+        <li><%= move.character_ability.character.user.nickname %>'s <%= move.character_ability.character.char_type %> has inflicted <%= move.character_ability.ability.slug_name %>.</li>
         <% count+=1 %>
       <% end %>
     <% end %>

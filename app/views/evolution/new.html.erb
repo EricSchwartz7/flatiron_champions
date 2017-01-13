@@ -1,0 +1,36 @@
+<br><br>
+<div class="container">
+
+  <%= form_tag evolve_path, method: :post  do %>
+
+    <% @characters.each do |character| %>
+        <div class="row">
+          <div class="col s10">
+            <div class="character-card">
+
+              <div style="float: left; padding-left: 50px; margin-top: 50px;">
+                <%= radio_button_tag 'character', "#{character.char_type}" %>
+                <%= image_tag "#{character.picture_front}", height: '100', width: '100' %>
+              </div>
+
+              <div style="float: left; padding-left: 50px; color: black !important;">
+              <h5><%= "#{character.char_type.upcase}" %></h5>
+
+              <% Ability.all.each do |ability|%>
+                <% if character.char_type == ability.char_type.downcase %>
+                  <p><%= "#{ability.slug_name} - Reliability: #{ability.reliability} - Max Dmg: #{(40 - ability.reliability)}" %></p>
+                <% end %>
+              <% end %>
+            </div>
+
+            </div>
+          </div>
+        </div>
+
+    <% end %>
+
+    <%= submit_tag 'Choose Character' %>
+
+  <% end %>
+
+</div>

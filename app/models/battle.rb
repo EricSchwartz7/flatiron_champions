@@ -61,10 +61,16 @@ class Battle < ApplicationRecord
       self.winner_id = self.opponent.id
       opponent.xp += ((10+self.opponent_hp)*(challenger.level.to_f/opponent.level.to_f).to_f).to_i
       opponent.save
+      if opponent.xp >= 50 && opponent.char_type == 'student' && current_user.id == opponent.user.id
+        redirect_to start_evolution_path
+      end
     elsif self.opponent_hp < 1
       self.winner_id = self.challenger.id
       challenger.xp += ((10+self.challenger_hp)*(opponent.level.to_f/challenger.level.to_f)).to_i
       challenger.save
+      if challenger.xp >= 50 && challenger.char_type == 'student' && current_user.id == challenger.user.id
+        redirect_to start_evolution_path
+      end
     end
     self.save
   end
