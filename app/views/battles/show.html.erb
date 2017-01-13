@@ -1,17 +1,16 @@
 <div class="container">
-
+<div class="center-align">
   <h1><%= @challenger.nickname %> VS. <%= @opponent.nickname %></h1>
-
   <% if @battle.battle_over? %>
     <h1> <%= Character.find(@battle.winner_id).user.nickname %> Wins </h1>
   <% end %>
-
+</div>
   <div>
     <% if flash[:notice] %>
       <%= flash[:notice] %>
     <% end %>
   </div>
-
+<p class="flow-text">
   <div class="row">
     <div class="col s4">
 
@@ -38,10 +37,9 @@
               <%= submit_tag 'Submit Move' %>
           <% end %>
         <% end %>
-
       </div>
     </div>
-
+</p>
 
     <div class="col s4 offset-s4">
       <div style = "padding: 20px; border: 1px solid black; border-radius: 20px;">
@@ -113,3 +111,4 @@
   </div>
 
 </div>
+</p>

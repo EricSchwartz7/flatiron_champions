@@ -9,7 +9,7 @@
 <%= form_for @battle do |f| %>
 <%= f.collection_select(:opponent_id, @inactive_users, :id, :nickname, class: "show-select")%>
 <br>
-<%= f.submit 'Battle!' %>
+<%= f.submit 'Battle!', class: 'battle-button' %>
 <% end %>
 
 <h3>Active Battles</h3>

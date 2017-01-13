@@ -14,9 +14,12 @@
 <div class="center-align">
   <h1><%= @user.nickname %></h1>
 </div>
-<ul class="container">
+
+<ul class="collection">
+  <li class="collection-item avatar">
     <% @characters.each do |char| %>
-    <li><%= link_to char.char_type.capitalize, char %></li>
+    <img src="http://generator-meme.com/inc/media/memes/all-the-things.jpg" alt="" class="circle">
+    <h3><li><%= link_to char.char_type.capitalize, char, class: 'title' %></li>Newbie Coder</h3>
     <% end %>
 </ul>
 
