@@ -4,6 +4,7 @@
     <title>Flatiron Champions</title>
     <%= csrf_meta_tags %>
     <link rel="icon" href="http://generator-meme.com/inc/media/memes/all-the-things.jpg">
+    <link rel="flat-icon" href="http://www.psdgraphics.com/file/trophy-award-icon.jpg">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Squada+One" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,7 +13,7 @@
 
   <nav>
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo center">Flatiron Champions</a>
+      <a href="/" class="brand-logo center"><i>Flatiron Champions</i></a>
       <% if logged_in? %>
         <ul class="left hide-on-med-and-down">
           <li><a href="/users/<%= "#{current_user.id}" %>">Profile</a></li>

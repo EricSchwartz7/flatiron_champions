@@ -13,10 +13,17 @@
 <ul class="container">
     <%= form_for @user do |f| %>
     <div class="row">
-    <div class="col s12">
-    <i class="material-icons prefix">account_circle</i>
-      <%= f.label :username %>
-      <%= f.text_field :username, class: 'input-field' %><br>
+      <div class="col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <%= f.label :username %>
+        <%= f.text_field :username, class: 'input-field' %><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <i class="material-icons prefix">email</i>
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'input-field' %><br>
       </div>
     </div>
     <div class="row">

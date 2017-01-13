@@ -50,24 +50,27 @@
 <% if !!@active_challenge %>
   <p><%= "Challenged #{@active_challenge.opponent.user.nickname} to battle. Awaiting response." %></p>
   <p><%= button_to 'Cancel Challenge', '/battles/destroy' %></p>
-<% elsif !!@active_invitation %>
-  <p><%= "#{@active_invitation.challenger.user.nickname} wants to battle. Do you accept?" %></p><br>
-  <%= form_tag '/battles/challenge_response', method: :get do %>
-    <%= label_tag :accept %>
-    <%= radio_button_tag :invite, 'accept' %><br>
-    <%= label_tag :decline %>
-    <%= radio_button_tag :invite, 'decline' %><br>
-    <br>
-    <%= submit_tag 'Submit' %>
+<% elsif !@active_invitations.blank? %>
+  <% @active_invitations.each do |invitation| %>
+    <p><%= "#{invitation.challenger.user.nickname} wants to battle. Do you accept?" %></p><br>
+    <%= form_tag '/battles/challenge_response', method: :get do %>
+      <%= label_tag :accept %>
+      <%= radio_button_tag :invite, 'accept' %><br>
+      <%= label_tag :decline %>
+      <%= radio_button_tag :invite, 'decline' %><br>
+      <%= hidden_field_tag "battle_id", invitation.id %>
+      <br>
+      <%= submit_tag 'Submit' %>
+    <% end %>
   <% end %>
 <% elsif !!@active_battle %>
   <p>Active Battle:</p>
   <h3><%= link_to "#{@active_battle.challenger.user.nickname} vs #{@active_battle.opponent.user.nickname}", @active_battle %></h3>
 <% end %>
 <br>
-
 <% if @active_battle == nil && @active_challenge == nil %>
   <a class="battle_button" style="vertical-align:middle" href="/battles/new"> <span>New Battle</span> </a><br>
 <% end %>
+
 
 </div>

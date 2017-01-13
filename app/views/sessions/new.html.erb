@@ -7,20 +7,20 @@
 <ul class="container">
     <%= form_tag '/sessions' do %>
     <div class="row">
-    <div class="col s12">
-      <i class="material-icons prefix">account_circle</i>
-      <%= label_tag :username %>
-      <%= text_field_tag :username %><br>
+      <div class="col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <%= label_tag :username %>
+        <%= text_field_tag :username %><br>
       </div>
     </div>
     <div class="row">
-    <div class="col s12">
-      <i class="material-icons prefix">lock</i>
-      <%= label_tag :password %>
-      <%= password_field_tag :password %><br>
+      <div class="col s12">
+        <i class="material-icons prefix">lock</i>
+        <%= label_tag :password %>
+        <%= password_field_tag :password %><br>
       </div>
     </div>
     <%= submit_tag 'Sign In', class: 'login-button' %><br>
-  <%= submit_tag 'Sign Up' , class: 'sign-up-button'%>
 <% end %>
+<a class="sign-up-button" style="vertical-align:middle" href="/users/new"> <span>Sign Up</span> </a><br>
 </div>
