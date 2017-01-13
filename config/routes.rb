@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   get '/stats/global', to: 'stats#global', as: 'global_stats'
 
+  get '/evolution/new', to: 'evolution#new', as: 'start_evolution'
+  post '/evolution', to: 'evolution#create', as: 'evolve'
+  get '/evolution/:id', to: 'evolution#show'
+
 
   resources :moves
   resources :battles

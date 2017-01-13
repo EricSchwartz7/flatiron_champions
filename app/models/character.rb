@@ -6,6 +6,37 @@ class Character < ApplicationRecord
   validates :user_id, presence: true
   extend CreateCharacter
 
+  def self.list_characters
+    @characters = []
+
+    @ian = Character.new
+    @ian.char_type = 'ian'
+    @ian.picture_front = 'ian.jpg'
+    @characters << @ian
+
+    @j = Character.new
+    @j.char_type = 'j'
+    @j.picture_front = 'j.jpg'
+    @characters << @j
+
+    @jj = Character.new
+    @jj.char_type = 'jj'
+    @jj.picture_front = 'jj.jpg'
+    @characters << @jj
+
+    @tracy = Character.new
+    @tracy.char_type = 'tracy'
+    @tracy.picture_front = 'tracy.jpg'
+    @characters << @tracy
+
+    @antoin = Character.new
+    @antoin.char_type = 'antoin'
+    @antoin.picture_front = 'antoin.jpg'
+    @characters << @antoin
+
+    @characters
+  end
+
   def battles_where_challenger
     Battle.where(challenger_id: self.id)
   end
@@ -36,6 +67,10 @@ class Character < ApplicationRecord
 
   def level
     (((self.xp+50)/25)**0.5).to_i
+  end
+
+  def evolve
+
   end
 
 end
