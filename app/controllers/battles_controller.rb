@@ -19,6 +19,8 @@ class BattlesController < ApplicationController
       @battle.save
       @user = current_user
       @user.characters.first.destroy_all_invitations
+      @opponent = @battle.opponent.user
+      UserMailer.invitation_email(@user, @opponent).deliver_now
       redirect_to @battle
     end
   end
