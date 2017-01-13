@@ -50,6 +50,12 @@ class BattlesController < ApplicationController
     @opponent_character = @battle.opponent
     @challenger = @challenger_character.user
     @opponent = @opponent_character.user
+    if @battle.challenger.xp >= 50 && @battle.challenger.char_type == 'student' && current_user.id == @battle.challenger.user.id
+      redirect_to start_evolution_path
+    end
+    if @battle.opponent.xp >= 50 && @battle.opponent.char_type == 'student' && current_user.id == @battle.opponent.user.id
+      redirect_to start_evolution_path
+    end
   end
 
   def move
@@ -73,6 +79,7 @@ class BattlesController < ApplicationController
     @battle = Battle.find(params[:id])
     @updated_moves = @battle.battle_move_history
     @battle.execute_turn if @battle.valid_turn(@updated_moves)
+
     redirect_to battle_path
   end
 
