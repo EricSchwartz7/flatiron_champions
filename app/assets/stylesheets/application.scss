@@ -15,10 +15,17 @@
 */
 @import 'materialize';
 
-h1, h2, h3, h4, h5, h6, p {
-  font-family: 'Squada One', Georgia;
+h1, h2, h3, h4, h5, h6, p, body {
+  font-family: 'Squada One', Roboto;
+  color: #40c4ff
 }
 
+body {
+  background-color: #263238;
+}
+
+
 .nav-wrapper {
-  background-color: #aeea00
+  background-color: #ff3333;
+  font-family: 'Squada One';
 }
