@@ -8,12 +8,20 @@ class Battle < ApplicationRecord
     [challenger_moves,opponent_moves]
   end
 
+  def render_challenger?
+    battle_move_history.first.count == battle_move_history.last.count || battle_move_history.first.count == (battle_move_history.last.count - 1)
+  end
+
+  def render_opponent?
+    battle_move_history.first.count == battle_move_history.last.count || (battle_move_history.first.count - 1) == battle_move_history.last.count
+  end
+
   def valid_move(character_ability)
     return false if self.battle_over?
     if character_ability.character.id == self.challenger_id
-      battle_move_history.first.count == battle_move_history.last.count || battle_move_history.first.count == (battle_move_history.last.count - 1)
+      render_challenger?
     elsif character_ability.character.id == self.opponent_id
-      battle_move_history.first.count == battle_move_history.last.count || (battle_move_history.first.count - 1) == battle_move_history.last.count
+      render_opponent?
     else
       false
     end
@@ -56,7 +64,6 @@ class Battle < ApplicationRecord
     elsif self.opponent_hp < 1
       self.winner_id = self.challenger.id
       challenger.xp += ((10+self.challenger_hp)*(opponent.level.to_f/challenger.level.to_f)).to_i
-      binding.pry
       challenger.save
     end
     self.save
