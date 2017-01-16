@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       create_student_with_abilities
 
       # Tell the UserMailer to send a welcome email after save
-      FcMailer.welcome_email(@user).deliver_now
+      UserMailer.welcome_email(@user).deliver_now
 
       # format.html { redirect_to(@user, notice: 'User was successfully created.') }
       # format.json { render json: @user, status: :created, location: @user }
