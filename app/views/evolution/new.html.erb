@@ -10,6 +10,7 @@
 
               <div style="float: left; padding-left: 50px; margin-top: 50px;">
                 <%= radio_button_tag 'character', "#{character.char_type}" %>
+                <%= label_tag "character_#{character.char_type}", "" %>
                 <%= image_tag "#{character.picture_front}", height: '100', width: '100' %>
               </div>
 

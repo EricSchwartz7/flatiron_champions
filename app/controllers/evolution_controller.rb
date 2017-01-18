@@ -24,7 +24,7 @@ class EvolutionController < ApplicationController
     @character.char_type = new_character.first.char_type
     @character.picture_front = new_character.first.picture_front
     @character.save
-
+    @character.character_abilities.destroy_all
     @character.abilities << Ability.where(char_type: new_character.first.char_type)
 
 

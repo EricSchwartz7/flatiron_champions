@@ -17,27 +17,27 @@
 
 <% @characters.each do |char| %>
 <div class="row">
-  <div class="col s10">
+  <div class="col s11">
     <div class="character-card" style="background-color: white !important;">
 
-      <div style="float: left; padding-left: 50px;">
+      <div style="float: left; padding-left: 15px;">
         <% if char.char_type == 'student' %>
-          <%= image_tag "http://generator-meme.com/inc/media/memes/all-the-things.jpg", height: '100', width: '100' %>
+          <%= image_tag "http://generator-meme.com/inc/media/memes/all-the-things.jpg", height: '150', width: '150' %>
         <% else %>
-          <%= image_tag "#{char.picture_front}", height: '100', width: '100' %>
+          <%= image_tag "#{char.picture_front}", height: '150', width: '150' %>
         <% end %>
       </div>
 
-      <div style="float: left; padding-left: 50px; color: black !important; ">
-        <h5><%= link_to "#{char.char_type.upcase}", char %></h5>
-        <h6><%= "Level: #{char.level}" %></h6>
-        <h6><%= "XP: #{char.xp}" %></h6>
+      <div style="float: left; padding-left: 40px; color: black !important; ">
+        <h4><%= link_to "#{char.char_type.upcase}", char %></h4>
+        <h4><%= "Level: #{char.level}" %></h4>
+        <h4><%= "XP: #{char.xp}" %></h4>
       </div>
 
-      <div style="float: left; padding-left: 50px;">
+      <div style="float: right; padding-right: 10px;">
       <% Ability.all.each do |ability|%>
-        <% if char.char_type == ability.char_type.downcase %>
-          <h6><%= "#{ability.slug_name} - Reliability: #{ability.reliability} - Max Dmg: #{(40 - ability.reliability)}" %></h6>
+        <% if char.char_type == ability.char_type %>
+          <h5><%= "#{ability.slug_name} - Reliability: #{ability.reliability} - Max Dmg: #{(40 - ability.reliability)}" %></h5>
         <% end %>
       <% end %>
       </div>
@@ -52,14 +52,15 @@
   <p><%= button_to 'Cancel Challenge', '/battles/destroy' %></p>
 <% elsif !@active_invitations.blank? %>
   <% @active_invitations.each do |invitation| %>
-    <p><%= "#{invitation.challenger.user.nickname} wants to battle. Do you accept?" %></p><br>
+    <p><%= "#{invitation.challenger.user.nickname} wants to battle. Do you accept?" %></p>
     <%= form_tag '/battles/challenge_response', method: :get do %>
-      <%= label_tag :accept %>
-      <%= radio_button_tag :invite, 'accept' %><br>
-      <%= label_tag :decline %>
-      <%= radio_button_tag :invite, 'decline' %><br>
+      <p class = 'invite_options'>
+        <%= radio_button_tag :invite, 'accept' %>
+        <%= label_tag 'invite_accept', 'Accept' %><br>
+        <%= radio_button_tag :invite, 'decline' %>
+        <%= label_tag 'invite_decline', 'Decline' %>
+      </p>
       <%= hidden_field_tag "battle_id", invitation.id %>
-      <br>
       <%= submit_tag 'Submit' %>
     <% end %>
   <% end %>
