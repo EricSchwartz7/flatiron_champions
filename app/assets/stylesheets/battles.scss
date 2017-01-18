@@ -20,17 +20,17 @@ input[type='checkbox'] {
   opacity: 100;
 }
 
-input[type="radio"]:not(:checked) {
-  position: relative !important;
-  left: 0px !important;
-  opacity: 100;
-}
-
-input[type="radio"]:checked {
-  position: relative !important;
-  left: 0px !important;
-  opacity: 100;
-}
+// input[type="radio"]:not(:checked) {
+//   position: relative !important;
+//   left: 0px !important;
+//   opacity: 100;
+// }
+//
+// input[type="radio"]:checked {
+//   position: relative !important;
+//   left: 0px !important;
+//   opacity: 100;
+// }
 
 .battle-button {
     background-color: #008CBA;
@@ -70,6 +70,7 @@ input[type="radio"]:checked {
   -moz-border-radius: 5px;
   border-radius: 5px;
   position: relative;
+  max-width: 90%;
 }
 .challenger-b-bar {
   background: #0000ff;
@@ -92,6 +93,7 @@ input[type="radio"]:checked {
   -moz-border-radius: 5px;
   border-radius: 5px;
   position: relative;
+  max-width: 90%;
 }
 .opponent-b-bar {
   background: #32cd32;

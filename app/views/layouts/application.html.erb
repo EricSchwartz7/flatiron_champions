@@ -15,10 +15,10 @@
     <div class="nav-wrapper">
       <a href="/" class="brand-logo center"><i>Flatiron Champions</i></a>
       <% if logged_in? %>
-        <ul class="left hide-on-med-and-down">
-          <li><a href="/users/<%= "#{current_user.id}" %>">Profile</a></li>
-          <li><a href="/characters/<%= "#{current_user.id}" %>">Characters</a></li>
-          <li class="active"><a href="collapsible.html">Battle Stats</a></li>
+        <ul class="left">
+          <li><a class="top" href="/users/<%= "#{current_user.id}" %>">Profile</a></li>
+          <li><a class="top" href="/characters/<%= "#{current_user.id}" %>">Characters</a></li>
+          <li><a class="top" href="<%= global_stats_path %>">Battle Stats</a></li>
         </ul>
       <% end %>
     </div>

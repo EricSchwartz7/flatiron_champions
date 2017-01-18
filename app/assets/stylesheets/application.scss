@@ -20,6 +20,15 @@ h1, h2, h3, h4, h5, h6, p, body {
   color: #40b8ff;
 }
 
+p {
+  font-family: 'GillSans';
+  font-size: 20px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
 body {
   background-color: #263238;
 }
@@ -36,5 +45,24 @@ body {
   border-radius: 30px;
   height: 250px;
   padding: 25px;
+}
 
+.top {
+  font-size: 20px;
+}
+
+.moves-list {
+  font-family: 'Roboto';
+}
+
+.instruction {
+  font-family: 'GillSans';
+}
+
+.no-bullets {
+  font-size: 30px;
+}
+
+.character-card {
+  height: 230px;
 }

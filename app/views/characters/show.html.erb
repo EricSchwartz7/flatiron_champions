@@ -1,5 +1,9 @@
 <div class="center-align">
-<h1><%= @character.char_type.capitalize %></h1>
+  <% if @character.char_type == 'jj' %>
+    <h1><%= @character.char_type.upcase %></h1>
+  <% else %>
+    <h1><%= @character.char_type.capitalize %></h1>
+  <% end %>
 <ul class="container">
 <table class="highlight">
         <thead>
