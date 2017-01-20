@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :characters
   validates :username, presence: true
   validates :email, presence: true
-  validates :password, presence: true
+  # validates :password, presence: true
   validates :nickname, presence: true
 
 end
