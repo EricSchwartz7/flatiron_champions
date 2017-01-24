@@ -57,15 +57,22 @@ class Battle < ApplicationRecord
       self.opponent_hp = 0
     end
 
+    opponent_xp_increase = ((10+self.opponent_hp)*(challenger.level.to_f/opponent.level.to_f).to_f).to_i
+    challenger_xp_increase = ((10+self.challenger_hp)*(opponent.level.to_f/challenger.level.to_f)).to_i
+
     if self.challenger_hp < 1
       self.winner_id = self.opponent.id
-      opponent.xp += ((10+self.opponent_hp)*(challenger.level.to_f/opponent.level.to_f).to_f).to_i
+      opponent.xp += opponent_xp_increase
       opponent.save
+      challenger.xp += challenger_xp_increase/2
+      challenger.save
 
     elsif self.opponent_hp < 1
       self.winner_id = self.challenger.id
-      challenger.xp += ((10+self.challenger_hp)*(opponent.level.to_f/challenger.level.to_f)).to_i
+      challenger.xp += challenger_xp_increase
       challenger.save
+      opponent.xp += opponent_xp_increase/2
+      opponent.save
 
     end
     self.save
