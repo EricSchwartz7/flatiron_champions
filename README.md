@@ -1,6 +1,6 @@
 # README
 
-Online App Link http://flatiron-champions.herokuapp.com/sessions/new
+Online App Link http://flatiron-champions.herokuapp.com/
 
 Battle your favorite instructors against each other in this Pokemon style Game.
 
