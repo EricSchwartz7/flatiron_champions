@@ -17,7 +17,7 @@
       <div style = "padding: 20px; border: 1px solid black; border-radius: 20px;">
         <h5><%= @challenger_character.char_type.capitalize  %></h5>
         <% if @challenger_character.char_type == 'student' %>
-          <%= image_tag "http://generator-meme.com/inc/media/memes/all-the-things.jpg", height: '150', width: '150' %>
+          <%= image_tag "https://i.imgflip.com/ohrrn.jpg", height: '150', width: '150' %>
         <% else %>
           <%= image_tag "#{@challenger_character.picture_front}", height: '150', width: '150' %>
         <% end %>
@@ -52,7 +52,7 @@
       <div style = "padding: 20px; border: 1px solid black; border-radius: 20px;">
         <h5><%= @opponent_character.char_type.capitalize  %></h5>
         <% if @opponent_character.char_type == 'student' %>
-          <%= image_tag "http://generator-meme.com/inc/media/memes/all-the-things.jpg", height: '150', width: '150' %>
+          <%= image_tag "https://i.imgflip.com/ohrrn.jpg", height: '150', width: '150' %>
         <% else %>
           <%= image_tag "#{@opponent_character.picture_front}", height: '150', width: '150' %>
         <% end %>
