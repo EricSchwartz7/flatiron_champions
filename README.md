@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Online App Link http://flatiron-champions.herokuapp.com/
 
-Things you may want to cover:
+Battle your favorite instructors against each other in this Pokemon style Game.
 
-* Ruby version
+* Start off as a student and level up to compete as an instructor.
 
-* System dependencies
+* Gain new skills specific to your player.
 
-* Configuration
+* Battle other users and see who's best.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Become a Flatiron Champion!
